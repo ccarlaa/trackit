@@ -6,7 +6,8 @@ export default function Loading() {
         <ThreeDots 
         color="white" 
         height={80}
-        width={80} />
+        width={80} 
+        display="none"/>
     )
 }
 

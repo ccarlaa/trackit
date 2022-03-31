@@ -1,9 +1,16 @@
-import ImgLogo from "../Images/Logo.png"
-import Loading from "./Loading"
-
+import { useState } from 'react';
 import styled from 'styled-components';
 
+import ImgLogo from "../Images/Logo.png"
+// import Loading from "./Loading"
+
 export default function Register() {
+    const [registerInfos, setRegisterInfos] = useState({
+        email: "", 
+        password: "",
+        fullname: "", 
+        photo: ""
+    })
     function onSubmit() {
 
     }
@@ -14,28 +21,31 @@ export default function Register() {
             <Form onSubmit={onSubmit()}>
                 <Input
                     type="email"
-                    // value={email}
+                    value={registerInfos.email}
                     placeholder="email"
                     required
+                    onChange={(email) =>{setRegisterInfos(...registerInfos, {email: email.target.value}) ; console.log( email.target.value)}}
                 />
                 <Input
                     type="password"
-                    // value={password}
+                    value={registerInfos.password}
                     placeholder="senha"
+                    required
+                    onChange={(e) => {setRegisterInfos(...registerInfos, {password: e.target.value}) ; console.log("preenchendo password")}}
                 />
                 <Input
                     type="text"
-                    // value={name}
+                    value={registerInfos.fullname}
                     placeholder="nome"
                     required
-
+                    onChange={(e) => {setRegisterInfos(...registerInfos, {fullname: e.target.value}) ; console.log("preenchendo name")}}
                 />
                 <Input
                     type="url"
-                    // value={picture}
+                    value={registerInfos.photo}
                     placeholder="foto"
                     required
-
+                    onChange={(e) => {setRegisterInfos(...registerInfos, {photo: e.target.value}) ; console.log("preenchendo email")}}
                 />
                 <Button type="submit" className="submit">
                     Cadastrar
