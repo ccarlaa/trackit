@@ -1,30 +1,75 @@
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
-import Loading from "./Loading"
-
 
 import ImgLogo from "../Images/Logo.png"
+import Loading from "./Loading"
 
 export default function Login() {
+    const [loginInfos, setLoginInfos] = useState({
+        email: "", 
+        password: "",
+    })
+    const {email, password} = loginInfos;
+    const [disabled, setDisabled] = useState(false)
+
+    const navigate = useNavigate();
+    
+    function OnSubmit(e) {
+        setDisabled(true)
+        e.preventDefault();
+            const promisse = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", {
+            email: email, 
+            password: password, 
+        })
+        promisse.then((answer) => {console.log(answer)})
+        promisse.catch((warning) => {
+            console.log("Não foi possível realizar seu login. Por favor, tente novamente.");
+            setDisabled(false)
+        });
+    }
+
+    function RenderButton() {
+        if(disabled === true){
+            return (
+                <Loading />
+            )
+        }if(disabled === false){
+            return (
+                <p>Entrar</p>
+            )
+        }
+    }
+
     return (
         <Container>
             <Center>
                 <Logo src={ImgLogo} alt="" />
-                <Form >
+                <Form onSubmit={OnSubmit} >
                     <Input
+                        disabled={disabled}
                         type="email"
-                        // value={email}
+                        value={email}
                         placeholder="email"
+                        required
+                        onChange={(e) => setLoginInfos({...loginInfos, email: e.target.value})}
                     />
                     <Input
+                        disabled={disabled}
                         type="password"
-                        // value={email}
+                        value={password}
                         placeholder="senha"
+                        required
+                        onChange={(e) => setLoginInfos({...loginInfos, password: e.target.value})}
                     />
-                    <Button type="submit" className="submit">
-                        Entrar
-                        <Loading />
-                    </Button>
+                <Button disabled={disabled} type="submit">
+                    <RenderButton />
+                </Button>
                 </Form >
+                    <Link to="/Register">
+                        <GoTo>Não tem uma conta? Cadastre-se!</GoTo>
+                    </Link>
             </Center>
         </Container>
     )
@@ -92,4 +137,14 @@ const Button = styled.button`
     line-height: 26px;
     color: white;
     cursor: pointer;
+`
+const GoTo = styled.p`
+    margin-top: 20px;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 17px;
+    text-align: center;
+    color: #52B6FF;
+    text-decoration: underline;
 `

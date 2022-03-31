@@ -7,7 +7,7 @@ export default function Loading() {
         color="white" 
         height={80}
         width={80} 
-        display="none"/>
+        />
     )
 }
 

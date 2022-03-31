@@ -1,8 +1,10 @@
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 
 import ImgLogo from "../Images/Logo.png"
-// import Loading from "./Loading"
+import Loading from "./Loading"
 
 export default function Register() {
     const [registerInfos, setRegisterInfos] = useState({
@@ -11,45 +13,82 @@ export default function Register() {
         fullname: "", 
         photo: ""
     })
-    function onSubmit() {
+    const {email, password, fullname, photo} = registerInfos;
+    const [disabled, setDisabled] = useState(false)
 
+    const navigate = useNavigate();
+    
+    function OnSubmit(e) {
+        setDisabled(true)
+        e.preventDefault();
+            const promisse = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", {
+            email: email, 
+            name: fullname,
+            image: photo,
+            password: password, 
+        })
+        promisse.then(() => {navigate('/')})
+        promisse.catch((warning) => {
+            console.log("Não foi possível finalizar seu cadastro. Por favor, tente novamente.");
+            setDisabled(false)
+        });
     }
+
+    function RenderButton() {
+        if(disabled === true){
+            return (
+                <Loading />
+            )
+        }if(disabled === false){
+            return (
+                <p>Cadastrar</p>
+            )
+        }
+    }
+
     return (
         <Container>
         <Center>
             <Logo src={ImgLogo} alt="" />
-            <Form onSubmit={onSubmit()}>
+            <Form onSubmit={OnSubmit}>
                 <Input
+                    disabled={disabled}
                     type="email"
-                    value={registerInfos.email}
+                    value={email}
                     placeholder="email"
                     required
-                    onChange={(email) =>{setRegisterInfos(...registerInfos, {email: email.target.value}) ; console.log( email.target.value)}}
+                    onChange={(e) => setRegisterInfos({...registerInfos, email: e.target.value})}
                 />
                 <Input
+                    disabled={disabled}
                     type="password"
-                    value={registerInfos.password}
+                    value={password}
                     placeholder="senha"
                     required
-                    onChange={(e) => {setRegisterInfos(...registerInfos, {password: e.target.value}) ; console.log("preenchendo password")}}
+                    onChange={(e) => setRegisterInfos({...registerInfos, password: e.target.value})}
                 />
                 <Input
+                    disabled={disabled}
                     type="text"
-                    value={registerInfos.fullname}
+                    value={fullname}
                     placeholder="nome"
                     required
-                    onChange={(e) => {setRegisterInfos(...registerInfos, {fullname: e.target.value}) ; console.log("preenchendo name")}}
+                    onChange={(e) => setRegisterInfos({...registerInfos, fullname: e.target.value})}
                 />
                 <Input
+                    disabled={disabled}
                     type="url"
-                    value={registerInfos.photo}
+                    value={photo}
                     placeholder="foto"
                     required
-                    onChange={(e) => {setRegisterInfos(...registerInfos, {photo: e.target.value}) ; console.log("preenchendo email")}}
+                    onChange={(e) => setRegisterInfos({...registerInfos, photo: e.target.value})}
                 />
-                <Button type="submit" className="submit">
-                    Cadastrar
+                <Button disabled={disabled} type="submit">
+                    <RenderButton />
                 </Button>
+                <Link to="/">
+                    <GoTo>Já tem uma conta? Faça login!</GoTo>
+                </Link>
             </Form >
         </Center>
     </Container>
@@ -118,8 +157,18 @@ const Button = styled.button`
     cursor: pointer;
 
     &:disabled {
-    background-color: grey;
     opacity: 0.7;
     cursor: default;
   }
+`
+
+const GoTo = styled.p`
+    margin-top: 20px;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 17px;
+    text-align: center;
+    color: #52B6FF;
+    text-decoration: underline;
 `
