@@ -1,21 +1,21 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
 import ImgLogo from "../Images/Logo.png"
 import Loading from "./Loading"
+import { InfosLogin } from "./Contexts"
 
 export default function Login() {
+    const {infosLogin, setInfosLogin} = useContext(InfosLogin);
     const [loginInfos, setLoginInfos] = useState({
         email: "", 
         password: "",
     })
     const {email, password} = loginInfos;
     const [disabled, setDisabled] = useState(false)
-
     const navigate = useNavigate();
-    
     function OnSubmit(e) {
         setDisabled(true)
         e.preventDefault();
@@ -23,13 +23,15 @@ export default function Login() {
             email: email, 
             password: password, 
         })
-        promisse.then((answer) => {console.log(answer)})
+        promisse.then((answer) => {
+            setInfosLogin(...infosLogin, answer);
+            navigate('/Habits')
+        })
         promisse.catch((warning) => {
             console.log("Não foi possível realizar seu login. Por favor, tente novamente.");
             setDisabled(false)
         });
     }
-
     function RenderButton() {
         if(disabled === true){
             return (
@@ -41,7 +43,6 @@ export default function Login() {
             )
         }
     }
-
     return (
         <Container>
             <Center>
