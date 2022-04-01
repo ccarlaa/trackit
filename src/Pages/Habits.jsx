@@ -1,14 +1,28 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import axios from 'axios';
 
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import NewCard from "../Components/NewCard";
-import {AddNewHabit} from "../Contexts"
+import Card from "../Components/Card";
+import { AddNewHabit, HabitsList, InfosLogin } from "../Contexts";
+
 
 import styled from 'styled-components';
 
 export default function Habits() {
-    const {addNewHabit, setAddNewHabit} = useContext(AddNewHabit)
+    const {habitsList, setHabitsList} = useContext(HabitsList);
+    const {addNewHabit, setAddNewHabit} = useContext(AddNewHabit);
+    const {infosLogin} = useContext(InfosLogin);
+    const {token} = infosLogin.data;
+
+    useEffect(() => {
+        const promisse = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", {headers: {'Authorization': `Bearer ${token}`}});
+        promisse.then((answer) => {
+            setHabitsList(answer.data)
+        });
+        promisse.catch((warning) => console.log(warning.response));
+    }, []);
 
     function AddCard() {
         if(addNewHabit === true){
@@ -18,6 +32,18 @@ export default function Habits() {
         }else{
             return (
                 <></>
+            )
+        }
+    }
+
+    function WhatToShow() {
+        if(setHabitsList.length !== 0){
+            return (
+                <Card />
+            )
+        }else{
+            return (
+                <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
             )
         }
     }
@@ -36,7 +62,7 @@ export default function Habits() {
                     </AddHabit>
                     <AddCard />
                     <NewHabits>
-                        <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
+                        <WhatToShow />
                     </NewHabits>
                 </Center>
             </Container>
@@ -88,7 +114,6 @@ const Icon = styled.div`
 const NewHabits = styled.div`
     width: 100%;
     height: auto;
-    padding-top: 20px;
     font-size: 18px;
     font-style: normal;
     font-weight: 400;

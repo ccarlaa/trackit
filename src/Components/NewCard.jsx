@@ -3,8 +3,7 @@ import axios from 'axios';
 
 import styled from 'styled-components';
 import RenderButton from "./RenderButton"
-import { InfosLogin } from "../Contexts"
-import {AddNewHabit} from "../Contexts"
+import { InfosLogin, AddNewHabit } from "../Contexts"
 
 export default function NewCard() {
     let array = [
@@ -84,7 +83,7 @@ export default function NewCard() {
                                         }>{elem.day}</Day>
                                     )
                                 }
-                        }
+                            }
                         )} 
                         </Weekdays>
                         <AlignButtons>
@@ -113,16 +112,19 @@ const Card = styled.div`
     border-radius: 5px;
     padding-top: 20px;
     padding-bottom: 20px;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
 `
+
 const Form = styled.div`
     width: 90%;
     height: 82%;
     display: flex;
     flex-direction: column;
 `
+
 const Habit = styled.input`
     width: 100%;
     height: 50px;
@@ -138,8 +140,9 @@ const Habit = styled.input`
     color: grey;
     display: flex;
 `
+
 const Weekdays = styled.div`
-    width: 100%;
+    width: 80%;
     height: 40px;
     display: flex;
     justify-content: space-between;
@@ -147,7 +150,7 @@ const Weekdays = styled.div`
 
 const Day = styled.button`
     width: 13%;
-    height: 100%;
+    height: 85%;
     margin-bottom: 1px;
     border-radius: 5px;
     color: ${props => props.fontColor};
@@ -161,6 +164,7 @@ const Day = styled.button`
     align-items: center;
     justify-content: center;
 `
+
 const AlignButtons = styled.div`
     width: 100%;
     height: auto;
@@ -180,6 +184,7 @@ const ButtonCancel = styled.button`
     color: #52B6FF;
     background-color: white;
 `
+
 const ButtonSave = styled.button`
     width: 34%;
     height: 40px;
