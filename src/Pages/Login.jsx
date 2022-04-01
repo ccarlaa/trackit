@@ -4,8 +4,8 @@ import axios from 'axios';
 import styled from 'styled-components';
 
 import ImgLogo from "../Images/Logo.png"
-import Loading from "./Loading"
-import { InfosLogin } from "./Contexts"
+import RenderButton from "../Components/RenderButton"
+import { InfosLogin } from "../Contexts"
 
 export default function Login() {
     const {infosLogin, setInfosLogin} = useContext(InfosLogin);
@@ -19,7 +19,7 @@ export default function Login() {
     function OnSubmit(e) {
         setDisabled(true)
         e.preventDefault();
-            const promisse = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", {
+        const promisse = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", {
             email: email, 
             password: password, 
         })
@@ -28,21 +28,11 @@ export default function Login() {
             navigate('/Habits')
         })
         promisse.catch((warning) => {
-            console.log("Não foi possível realizar seu login. Por favor, tente novamente.");
+            alert("Não foi possível realizar seu login. Por favor, tente novamente.");
             setDisabled(false)
         });
     }
-    function RenderButton() {
-        if(disabled === true){
-            return (
-                <Loading />
-            )
-        }if(disabled === false){
-            return (
-                <p>Entrar</p>
-            )
-        }
-    }
+
     return (
         <Container>
             <Center>
@@ -65,7 +55,7 @@ export default function Login() {
                         onChange={(e) => setLoginInfos({...loginInfos, password: e.target.value})}
                     />
                 <Button disabled={disabled} type="submit">
-                    <RenderButton />
+                    <RenderButton state={disabled} text="Entrar"/>
                 </Button>
                 </Form >
                     <Link to="/Register">
@@ -98,7 +88,7 @@ const Center = styled.div`
 
 const Logo = styled.img`
     width: 60%;
-    height: 30%;
+    height: auto;
 `
 const Form = styled.form`
     width: 100%;
@@ -137,7 +127,6 @@ const Button = styled.button`
     font-weight: 400;
     line-height: 26px;
     color: white;
-    cursor: pointer;
 `
 const GoTo = styled.p`
     margin-top: 20px;

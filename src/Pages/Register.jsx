@@ -3,8 +3,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
-import ImgLogo from "../Images/Logo.png"
-import Loading from "./Loading"
+import ImgLogo from "../Images/Logo.png";
+import RenderButton from "../Components/RenderButton"
 
 export default function Register() {
     const [registerInfos, setRegisterInfos] = useState({
@@ -14,10 +14,8 @@ export default function Register() {
         photo: ""
     })
     const {email, password, fullname, photo} = registerInfos;
-    const [disabled, setDisabled] = useState(false)
-
+    const [disabled, setDisabled] = useState(false);
     const navigate = useNavigate();
-    
     function OnSubmit(e) {
         setDisabled(true)
         e.preventDefault();
@@ -30,22 +28,9 @@ export default function Register() {
         promisse.then(() => {navigate('/')})
         promisse.catch((warning) => {
             console.log("Não foi possível finalizar seu cadastro. Por favor, tente novamente.");
-            setDisabled(false)
+            setDisabled(false);
         });
     }
-
-    function RenderButton() {
-        if(disabled === true){
-            return (
-                <Loading />
-            )
-        }if(disabled === false){
-            return (
-                <p>Cadastrar</p>
-            )
-        }
-    }
-
     return (
         <Container>
         <Center>
@@ -84,7 +69,7 @@ export default function Register() {
                     onChange={(e) => setRegisterInfos({...registerInfos, photo: e.target.value})}
                 />
                 <Button disabled={disabled} type="submit">
-                    <RenderButton />
+                    <RenderButton state={disabled} text="Entrar"/>
                 </Button>
                 <Link to="/">
                     <GoTo>Já tem uma conta? Faça login!</GoTo>
@@ -116,7 +101,7 @@ const Center = styled.div`
 
 const Logo = styled.img`
     width: 60%;
-    height: 30%;
+    height: auto;
 `
 const Form = styled.form`
     width: 100%;

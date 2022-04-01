@@ -1,13 +1,19 @@
 import styled from 'styled-components';
 
+import { useContext } from 'react';
+import { InfosLogin } from "../Contexts"
+
 import LogoName from "../Images/LogoName.png";
 
 export default function Header() {
+    const {infosLogin} = useContext(InfosLogin);
+    const {image} = infosLogin.data;
+    console.log(image)
     return (
         <HeaderApp >
             <HeaderCenter>
                 <Logo src={LogoName} alt=""/>
-                <UserPhoto src={LogoName} alt=""/> 
+                <UserPhoto src={image} alt=""/> 
             </HeaderCenter>
         </HeaderApp>
     )
@@ -35,7 +41,7 @@ const Logo = styled.img`
     height: auto;
 `
 const UserPhoto = styled.img`
-    width: 17%;
+    width: 16%;
     height: 95%;
     background-color: orange;
     border-radius: 50%;

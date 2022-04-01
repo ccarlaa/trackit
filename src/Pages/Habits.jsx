@@ -1,9 +1,27 @@
-import Header from './Header';
-import Footer from './Footer';
+import { useState, useContext } from 'react';
+
+import Header from '../Components/Header';
+import Footer from '../Components/Footer';
+import NewCard from "../Components/NewCard";
+import {AddNewHabit} from "../Contexts"
 
 import styled from 'styled-components';
 
 export default function Habits() {
+    const {addNewHabit, setAddNewHabit} = useContext(AddNewHabit)
+
+    function AddCard() {
+        if(addNewHabit === true){
+            return (
+                <NewCard />
+            )
+        }else{
+            return (
+                <></>
+            )
+        }
+    }
+
     return (
         <>
             <Header />
@@ -13,12 +31,13 @@ export default function Habits() {
                     <AddHabit>
                         <p>Meus hábitos</p>
                         <Icon>
-                            <ion-icon name="add-outline"></ion-icon>
+                            <ion-icon name="add-outline" onClick={() => setAddNewHabit(true)}></ion-icon>
                         </Icon>
                     </AddHabit>
+                    <AddCard />
                     <NewHabits>
-                            <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
-                        </NewHabits>
+                        <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
+                    </NewHabits>
                 </Center>
             </Container>
         </>
@@ -69,6 +88,7 @@ const Icon = styled.div`
 const NewHabits = styled.div`
     width: 100%;
     height: auto;
+    padding-top: 20px;
     font-size: 18px;
     font-style: normal;
     font-weight: 400;

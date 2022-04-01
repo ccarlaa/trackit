@@ -11,7 +11,7 @@ export default function Footer() {
         <ProgressBar>
             <AnimatedProgressProvider
                 valueStart={0}
-                valueEnd={70}
+                valueEnd={60}
                 duration={1.4}
                 easingFunction={easeQuadInOut}
                 >
