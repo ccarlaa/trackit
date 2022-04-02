@@ -1,9 +1,9 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 
 import styled from 'styled-components';
 import RenderButton from "./RenderButton"
-import { InfosLogin, AddNewHabit } from "../Contexts"
+import { InfosLogin, AddNewHabit, NewRequisition } from "../Contexts"
 
 export default function NewCard() {
     let array = [
@@ -16,9 +16,9 @@ export default function NewCard() {
     {day: "S", number: 6}
  ]
 
-    const {infosLogin} = useContext(InfosLogin);
-    const {addNewHabit, setAddNewHabit} = useContext(AddNewHabit)
-
+    const { infosLogin } = useContext(InfosLogin);
+    const { addNewHabit, setAddNewHabit } = useContext(AddNewHabit)
+    const { newRequisition, setNewRequisition } = useContext(NewRequisition)
     const [insertHabit, setInsertHabit] = useState("");
     const [selected, setSelected] = useState([]);
     const [disabled, setDisabled] = useState(false)
@@ -34,7 +34,8 @@ export default function NewCard() {
                 days: selected, 
             }, {headers: {'Authorization': `Bearer ${token}`}})
             promisse.then(() => {
-                setAddNewHabit(false)
+                setAddNewHabit(false);
+                setNewRequisition(!newRequisition)
             })
             promisse.catch((warning) => {
                 alert("Não foi possível cadastrar seu hábito. Por favor, tente novamente.");
@@ -45,7 +46,7 @@ export default function NewCard() {
         }
 
     }
-
+    
     if(addNewHabit === true){
         return (
             <>
@@ -112,7 +113,6 @@ const Card = styled.div`
     border-radius: 5px;
     padding-top: 20px;
     padding-bottom: 20px;
-    margin-bottom: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -142,7 +142,7 @@ const Habit = styled.input`
 `
 
 const Weekdays = styled.div`
-    width: 80%;
+    width: 100%;
     height: 40px;
     display: flex;
     justify-content: space-between;
@@ -150,7 +150,7 @@ const Weekdays = styled.div`
 
 const Day = styled.button`
     width: 13%;
-    height: 85%;
+    height: 100%;
     margin-bottom: 1px;
     border-radius: 5px;
     color: ${props => props.fontColor};

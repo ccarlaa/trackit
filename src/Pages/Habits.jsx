@@ -1,18 +1,19 @@
-import { useState, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import axios from 'axios';
 
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import NewCard from "../Components/NewCard";
 import Card from "../Components/Card";
-import { AddNewHabit, HabitsList, InfosLogin } from "../Contexts";
+import { AddNewHabit, HabitsList, InfosLogin, NewRequisition } from "../Contexts";
 
 
 import styled from 'styled-components';
 
 export default function Habits() {
-    const {habitsList, setHabitsList} = useContext(HabitsList);
+    const {setHabitsList} = useContext(HabitsList);
     const {addNewHabit, setAddNewHabit} = useContext(AddNewHabit);
+    const {newRequisition} = useContext(NewRequisition);
     const {infosLogin} = useContext(InfosLogin);
     const {token} = infosLogin.data;
 
@@ -22,7 +23,7 @@ export default function Habits() {
             setHabitsList(answer.data)
         });
         promisse.catch((warning) => console.log(warning.response));
-    }, []);
+    }, [newRequisition]);
 
     function AddCard() {
         if(addNewHabit === true){
@@ -71,8 +72,8 @@ export default function Habits() {
 }   
 
 const Container = styled.div`
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background-color: #F2F2F2;
     padding-top: 80px;
     padding-bottom: 90px;
@@ -119,4 +120,5 @@ const NewHabits = styled.div`
     font-weight: 400;
     line-height: 22px;
     color: #666666;
+    padding-bottom: 40px;
 `

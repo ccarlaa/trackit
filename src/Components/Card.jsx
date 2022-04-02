@@ -1,7 +1,7 @@
-import { useState, useContext, useEffect } from 'react';
-
-import { HabitsList, InfosLogin } from "../Contexts";
+import { useContext } from 'react';
 import axios from 'axios';
+
+import { InfosLogin, HabitsList, NewRequisition } from "../Contexts";
 
 import styled from 'styled-components';
 
@@ -15,21 +15,35 @@ export default function Card() {
         {day: "S", number: 5},
         {day: "S", number: 6}
     ]
-    const {habitsList, setHabitsList} = useContext(HabitsList);
-    const {infosLogin} = useContext(InfosLogin);
+    const {habitsList} = useContext(HabitsList);
+    const { infosLogin } = useContext(InfosLogin);
+    const { newRequisition, setNewRequisition } = useContext(NewRequisition);
     const {token} = infosLogin.data;
+
+    function postDelete(e, id){
+        e.preventDefault();
+        console.log(id);
+        const promisse = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`, {headers: {'Authorization': `Bearer ${token}`}})
+            promisse.then(() => {
+                setNewRequisition(!newRequisition);
+            })
+            promisse.catch((warning) => {
+                alert("deu ruim")
+            })
+    }
 
     return (
         <>
             {habitsList.map(card => {
                     let days = card.days;
+
                     return (
                     <HabitCreated>
                     <CenterHabit>
                         <HabitDescription>
                             <P>{card.name}</P>
                             <IconTrash>
-                                <ion-icon name="trash-outline"></ion-icon>
+                                <ion-icon onClick={(e) => postDelete(e, card.id)} name="trash-outline"></ion-icon>
                             </IconTrash>
                         </HabitDescription>
                         <Weekdays>
