@@ -1,14 +1,11 @@
-import styled from 'styled-components';
-
 import { useContext } from 'react';
-import { InfosLogin } from "../Contexts"
-
+import styled from 'styled-components';
+import { InfosLogin } from "../Contexts";
 import LogoName from "../Images/LogoName.png";
 
 export default function Header() {
     const {infosLogin} = useContext(InfosLogin);
     const {image} = infosLogin.data;
-    console.log(image)
     return (
         <HeaderApp >
             <HeaderCenter>
@@ -35,7 +32,6 @@ const HeaderCenter = styled.div`
     justify-content: space-between;
     align-items: center;
 `
-
 const Logo = styled.img`
     width: 30%;
     height: auto;

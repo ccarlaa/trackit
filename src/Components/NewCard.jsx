@@ -1,33 +1,31 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import axios from 'axios';
-
 import styled from 'styled-components';
-import RenderButton from "./RenderButton"
-import { InfosLogin, AddNewHabit, NewRequisition } from "../Contexts"
+import RenderButton from "./RenderButton";
+import { InfosLogin, AddNewHabit, NewRequisition } from "../Contexts";
 
 export default function NewCard() {
     let array = [
-    {day: "D", number: 7},
-    {day: "S", number: 1},
-    {day: "T", number: 2},
-    {day: "Q", number: 3},
-    {day: "Q", number: 4},
-    {day: "S", number: 5},
-    {day: "S", number: 6}
- ]
+        {day: "D", number: 7},
+        {day: "S", number: 1},
+        {day: "T", number: 2},
+        {day: "Q", number: 3},
+        {day: "Q", number: 4},
+        {day: "S", number: 5},
+        {day: "S", number: 6}
+    ];
 
     const { infosLogin } = useContext(InfosLogin);
-    const { addNewHabit, setAddNewHabit } = useContext(AddNewHabit)
-    const { newRequisition, setNewRequisition } = useContext(NewRequisition)
-    const [insertHabit, setInsertHabit] = useState("");
-    const [selected, setSelected] = useState([]);
-    const [disabled, setDisabled] = useState(false)
+    const { addNewHabit, setAddNewHabit } = useContext(AddNewHabit);
+    const { newRequisition, setNewRequisition } = useContext(NewRequisition);
+    const [ insertHabit, setInsertHabit ] = useState("");
+    const [ selected, setSelected ] = useState([]);
+    const [ disabled, setDisabled ] = useState(false);
+    const { token } = infosLogin.data;
 
-    const {token} = infosLogin.data;
-
-    function postAPI(e) {
+    function postNewCard(e) {
         if(selected.length > 0 && insertHabit !== ""){
-            setDisabled(true)
+            setDisabled(true);
             e.preventDefault();
             const promisse = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", {
                 name: insertHabit, 
@@ -35,18 +33,18 @@ export default function NewCard() {
             }, {headers: {'Authorization': `Bearer ${token}`}})
             promisse.then(() => {
                 setAddNewHabit(false);
-                setNewRequisition(!newRequisition)
+                setNewRequisition(!newRequisition);
             })
             promisse.catch((warning) => {
                 alert("Não foi possível cadastrar seu hábito. Por favor, tente novamente.");
-                setDisabled(false)
+                setDisabled(false);
             })
         }else{
-            alert("Preencha todos os campos abaixo")
+            alert("Preencha todos os campos abaixo");
         }
 
     }
-    
+
     if(addNewHabit === true){
         return (
             <>
@@ -91,7 +89,7 @@ export default function NewCard() {
                             <ButtonCancel onClick={() => setAddNewHabit(false)}>
                                 Cancelar
                             </ButtonCancel>
-                            <ButtonSave onClick={(e) => postAPI(e)}>
+                            <ButtonSave onClick={(e) => postNewCard(e)}>
                                 <RenderButton state={disabled} text="Entrar"/>
                             </ButtonSave>
                         </AlignButtons>
@@ -117,14 +115,12 @@ const Card = styled.div`
     align-items: center;
     justify-content: center;
 `
-
 const Form = styled.div`
     width: 90%;
     height: 82%;
     display: flex;
     flex-direction: column;
 `
-
 const Habit = styled.input`
     width: 100%;
     height: 50px;
@@ -140,14 +136,12 @@ const Habit = styled.input`
     color: grey;
     display: flex;
 `
-
 const Weekdays = styled.div`
     width: 100%;
     height: 40px;
     display: flex;
     justify-content: space-between;
 `
-
 const Day = styled.button`
     width: 13%;
     height: 100%;
@@ -164,7 +158,6 @@ const Day = styled.button`
     align-items: center;
     justify-content: center;
 `
-
 const AlignButtons = styled.div`
     width: 100%;
     height: auto;
@@ -172,7 +165,6 @@ const AlignButtons = styled.div`
     display: flex;
     justify-content: flex-end;
 `
-
 const ButtonCancel = styled.button`
     width: 34%;
     height: 40px;
@@ -184,7 +176,6 @@ const ButtonCancel = styled.button`
     color: #52B6FF;
     background-color: white;
 `
-
 const ButtonSave = styled.button`
     width: 34%;
     height: 40px;

@@ -1,43 +1,53 @@
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import AnimatedProgressProvider from "./AnimatedProgressProvider"
 import { easeQuadInOut } from "d3-ease";
-import 'react-circular-progressbar/dist/styles.css';
+import { Link } from "react-router-dom";
 import styled from 'styled-components';
-
+import { useContext } from 'react';
+import 'react-circular-progressbar/dist/styles.css';
+import { Score } from '../Contexts';
 
 export default function Footer() {
+    const { score } = useContext(Score);
+    
     return (
         <>
-        <ProgressBar>
-            <AnimatedProgressProvider
-                valueStart={0}
-                valueEnd={60}
-                duration={1.4}
-                easingFunction={easeQuadInOut}
-                >
-                {value => {
-                return (
-                    <CircularProgressbar
-                        value={value}
-                        text={"Hoje"}
-                        background
-                        backgroundPadding={6}
-                        styles={buildStyles({
-                            pathTransition: "none",
-                            backgroundColor: "#52B6FF",
-                            textColor: "#ffffff",
-                            pathColor: "#ffffff",
-                            trailColor: "transparent"
-                        })}
-                    />
-                );
-                }}
-            </AnimatedProgressProvider>
-        </ProgressBar>
-        <FooterApp>
-             <Habits>Hábitos</Habits>
-            <Historic>Histórico</Historic> 
-        </FooterApp>
+            <Link to="/Today">
+                <ProgressBar>
+                    <AnimatedProgressProvider
+                        valueStart={0}
+                        valueEnd={score}
+                        duration={1.4}
+                        easingFunction={easeQuadInOut}
+                        >
+                        {value => {
+                        return (
+                            <CircularProgressbar
+                                value={value}
+                                text={"Hoje"}
+                                background
+                                backgroundPadding={6}
+                                styles={buildStyles({
+                                    pathTransition: "none",
+                                    backgroundColor: "#52B6FF",
+                                    textColor: "#ffffff",
+                                    pathColor: "#ffffff",
+                                    trailColor: "transparent"
+                                })}
+                            />
+                        );
+                        }}
+                    </AnimatedProgressProvider>
+                </ProgressBar>
+            </Link>
+            <FooterApp>
+                <Link to="/Habits">
+                    <Habits >Hábitos</Habits>
+                </Link>
+                <Link to="/Historic">
+                    <Historic>Histórico</Historic> 
+                </Link>
+            </FooterApp>
         </>
     )
 }
@@ -50,7 +60,6 @@ const ProgressBar = styled.div`
     z-index: 1;
 
 `
-
 const FooterApp = styled.footer`
     width: 100%;
     height: 80px;
@@ -58,10 +67,11 @@ const FooterApp = styled.footer`
     position: fixed;
     bottom: 0;
     display: flex;
+    display: flex;
+    justify-content: space-between;
 `
-
 const Habits = styled.div`
-    width: 50%;
+    width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -75,7 +85,7 @@ const Habits = styled.div`
     color: #52B6FF;
 `
 const Historic = styled.div`
-    width: 50%;
+    width: 100%;
     height: 100%;
     display: flex;
     align-items: center;

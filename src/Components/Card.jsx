@@ -1,8 +1,6 @@
 import { useContext } from 'react';
 import axios from 'axios';
-
 import { InfosLogin, HabitsList, NewRequisition } from "../Contexts";
-
 import styled from 'styled-components';
 
 export default function Card() {
@@ -14,21 +12,21 @@ export default function Card() {
         {day: "Q", number: 4},
         {day: "S", number: 5},
         {day: "S", number: 6}
-    ]
-    const {habitsList} = useContext(HabitsList);
+    ];
+
+    const { habitsList } = useContext(HabitsList);
     const { infosLogin } = useContext(InfosLogin);
     const { newRequisition, setNewRequisition } = useContext(NewRequisition);
-    const {token} = infosLogin.data;
+    const { token } = infosLogin.data;
 
     function postDelete(e, id){
         e.preventDefault();
-        console.log(id);
         const promisse = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`, {headers: {'Authorization': `Bearer ${token}`}})
             promisse.then(() => {
                 setNewRequisition(!newRequisition);
             })
             promisse.catch((warning) => {
-                alert("deu ruim")
+                alert("Não foi possível deletar o hábito. Por favor, tente novamente");
             })
     }
 
@@ -85,7 +83,6 @@ const CenterHabit = styled.div`
     display: flex;
     flex-direction: column;
 `
-
 const HabitDescription = styled.div`
     width: 100%;
     height: 50%;
@@ -97,14 +94,12 @@ const HabitDescription = styled.div`
     line-height: 25px;
     color: #666666;
 `
-
 const Weekdays = styled.div`
     width: 80%;
     height: 33px;
     display: flex;
     justify-content: space-between;
 `
-
 const P = styled.p`
     width: 85%;
     height: auto;
@@ -113,7 +108,6 @@ const P = styled.p`
     display: flex;
     flex-wrap: wrap;
 `
-
 const IconTrash = styled.div`
     font-size: 25px;
 `

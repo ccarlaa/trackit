@@ -1,26 +1,23 @@
 import { useContext, useEffect } from 'react';
 import axios from 'axios';
-
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import NewCard from "../Components/NewCard";
 import Card from "../Components/Card";
 import { AddNewHabit, HabitsList, InfosLogin, NewRequisition } from "../Contexts";
-
-
 import styled from 'styled-components';
 
 export default function Habits() {
-    const {setHabitsList} = useContext(HabitsList);
-    const {addNewHabit, setAddNewHabit} = useContext(AddNewHabit);
-    const {newRequisition} = useContext(NewRequisition);
-    const {infosLogin} = useContext(InfosLogin);
-    const {token} = infosLogin.data;
+    const { setHabitsList } = useContext(HabitsList);
+    const { addNewHabit, setAddNewHabit } = useContext(AddNewHabit);
+    const { newRequisition } = useContext(NewRequisition);
+    const { infosLogin } = useContext(InfosLogin);
+    const { token } = infosLogin.data;
 
     useEffect(() => {
         const promisse = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", {headers: {'Authorization': `Bearer ${token}`}});
         promisse.then((answer) => {
-            setHabitsList(answer.data)
+            setHabitsList(answer.data);
         });
         promisse.catch((warning) => console.log(warning.response));
     }, [newRequisition]);
@@ -36,7 +33,6 @@ export default function Habits() {
             )
         }
     }
-
     function WhatToShow() {
         if(setHabitsList.length !== 0){
             return (
@@ -73,7 +69,7 @@ export default function Habits() {
 
 const Container = styled.div`
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background-color: #F2F2F2;
     padding-top: 80px;
     padding-bottom: 90px;
@@ -81,12 +77,10 @@ const Container = styled.div`
     display: flex;
     justify-content: center
 `
-
 const Center = styled.div`
     width: 92%;
     height: 100%;
 `
-
 const AddHabit = styled.div`
     width: 100%;
     height: 70px;
@@ -111,7 +105,6 @@ const Icon = styled.div`
     font-size: 30px;
     color: white
 `
-
 const NewHabits = styled.div`
     width: 100%;
     height: auto;

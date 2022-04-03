@@ -2,22 +2,23 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useContext } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-
 import ImgLogo from "../Images/Logo.png"
-import RenderButton from "../Components/RenderButton"
-import { InfosLogin } from "../Contexts"
+import RenderButton from "../Components/RenderButton";
+import { InfosLogin } from "../Contexts";
 
 export default function Login() {
-    const {infosLogin, setInfosLogin} = useContext(InfosLogin);
-    const [loginInfos, setLoginInfos] = useState({
+    const { infosLogin, setInfosLogin } = useContext(InfosLogin);
+    const [ loginInfos, setLoginInfos ] = useState({
         email: "", 
         password: "",
-    })
-    const {email, password} = loginInfos;
-    const [disabled, setDisabled] = useState(false)
+    });
+    const { email, password } = loginInfos;
+    const [ disabled, setDisabled ] = useState(false);
+
     const navigate = useNavigate();
+
     function OnSubmit(e) {
-        setDisabled(true)
+        setDisabled(true);
         e.preventDefault();
         const promisse = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", {
             email: email, 
@@ -25,11 +26,11 @@ export default function Login() {
         })
         promisse.then((answer) => {
             setInfosLogin(...infosLogin, answer);
-            navigate('/Habits')
+            navigate('/Today');
         })
         promisse.catch((warning) => {
             alert("Não foi possível realizar seu login. Por favor, tente novamente.");
-            setDisabled(false)
+            setDisabled(false);
         });
     }
 
@@ -76,7 +77,6 @@ const Container = styled.div`
     justify-content: center;
     bottom: 50px;
 `
-
 const Center = styled.div`
     width: 80%;
     height: auto;
@@ -85,7 +85,6 @@ const Center = styled.div`
     justify-content: center;
     flex-direction: column;
 `
-
 const Logo = styled.img`
     width: 60%;
     height: auto;
@@ -96,7 +95,6 @@ const Form = styled.form`
     flex-direction: column;
     align-items: center;
 `
-
 const Input = styled.input`
     width: 100%;
     height: 50px;
@@ -112,7 +110,6 @@ const Input = styled.input`
     letter-spacing: 0em;
     text-align: left;
 `
-
 const Button = styled.button`
     width: 100%;
     height: 50px;

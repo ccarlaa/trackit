@@ -2,20 +2,21 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-
 import ImgLogo from "../Images/Logo.png";
-import RenderButton from "../Components/RenderButton"
+import RenderButton from "../Components/RenderButton";
 
 export default function Register() {
-    const [registerInfos, setRegisterInfos] = useState({
+    const [ registerInfos, setRegisterInfos] = useState({
         email: "", 
         password: "",
         fullname: "", 
         photo: ""
     })
-    const {email, password, fullname, photo} = registerInfos;
-    const [disabled, setDisabled] = useState(false);
+    const { email, password, fullname, photo } = registerInfos;
+    const [ disabled, setDisabled ] = useState(false);
+
     const navigate = useNavigate();
+
     function OnSubmit(e) {
         setDisabled(true)
         e.preventDefault();
@@ -31,6 +32,7 @@ export default function Register() {
             setDisabled(false);
         });
     }
+
     return (
         <Container>
         <Center>
@@ -89,7 +91,6 @@ const Container = styled.div`
     justify-content: center;
     bottom: 50px;
 `
-
 const Center = styled.div`
     width: 80%;
     height: auto;
@@ -98,7 +99,6 @@ const Center = styled.div`
     justify-content: center;
     flex-direction: column;
 `
-
 const Logo = styled.img`
     width: 60%;
     height: auto;
@@ -109,7 +109,6 @@ const Form = styled.form`
     flex-direction: column;
     align-items: center;
 `
-
 const Input = styled.input`
     width: 100%;
     height: 50px;
