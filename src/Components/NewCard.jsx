@@ -21,7 +21,7 @@ export default function NewCard() {
     const [ insertHabit, setInsertHabit ] = useState("");
     const [ selected, setSelected ] = useState([]);
     const [ disabled, setDisabled ] = useState(false);
-    const { token } = infosLogin.data;
+    const { token } = infosLogin;
 
     function postNewCard(e) {
         if(selected.length > 0 && insertHabit !== ""){

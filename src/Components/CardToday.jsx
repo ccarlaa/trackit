@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { HabitsToday, InfosLogin, NewRequisition } from '../Contexts';
@@ -8,35 +8,34 @@ export default function CardToday() {
     const { habitsToday } = useContext(HabitsToday);
     const { newRequisition, setNewRequisition } = useContext(NewRequisition);
     const { infosLogin } = useContext(InfosLogin);
-    const { token } = infosLogin.data;
+    const { token } = infosLogin;
+    const [ disabled, setDisabled ] = useState(false);
 
     function DoneCard(e,id) {
         e.preventDefault();
+        setDisabled(true);
         const promisse = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`, null, {headers: {'Authorization': `Bearer ${token}`}})
         promisse.then(() => {
-            setNewRequisition(!newRequisition);
+            setNewRequisition(!newRequisition);  
+            setDisabled(false);
         })
         promisse.catch((warning) => {
             alert("Ocorreu um erro. Tente novamente.");
+            setDisabled(false);
         })
     }
     function NotDoneCard(e, id) {
         e.preventDefault();
+        setDisabled(true);
         const promisse = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`, null, {headers: {'Authorization': `Bearer ${token}`}})
         promisse.then(() => {
             setNewRequisition(!newRequisition);
+            setDisabled(false);
         })
-        promisse.catch((warning) => {
+        promisse.catch(() => {
             alert("Ocorreu um erro. Tente novamente.");
+            setDisabled(false);
         })
-    }
-
-    function IfDone(e,id, done){
-        if(done){
-            NotDoneCard(e,id);
-        }else{
-            DoneCard(e,id);
-        }
     }
 
     return (
@@ -50,7 +49,7 @@ export default function CardToday() {
                             <Sequential fontColorSequential={elem.done ? "#8FC549" : "#666666"}>Sequência atual: {elem.currentSequence} {elem.currentSequence > 1 ? "dias" : "dia"} </Sequential>
                             <Record fontColorRecord={elem.currentSequence === elem.highestSequence ? "#8FC549" : "#666666"}>Seu recorde: {elem.highestSequence} {elem.highestSequence > 1 ? "dias" : "dia"} </Record>
                         </Left>
-                        <IconCheck background={elem.done ? "#8FC549" : "#E7E7E7"} onClick={(e) => IfDone(e, elem.id, elem.done)}>
+                        <IconCheck disabled={disabled} background={elem.done ? "#8FC549" : "#E7E7E7"} onClick={(e) => {elem.done ? NotDoneCard(e, elem.id) : DoneCard(e, elem.id)}}>
                             <ion-icon name="checkmark-outline"></ion-icon>
                         </IconCheck>
                     </CenterCards>
@@ -104,9 +103,8 @@ font-size: 13px;
     line-height: 16px;
     color: ${props => props.fontColorRecord};
 `
-const IconCheck = styled.div`
+const IconCheck = styled.button`
     width: 22%;
-    height: 100hv;
     background-color: ${props => props.background};
     margin-left: 10px;
     border-radius: 5px;
@@ -115,4 +113,5 @@ const IconCheck = styled.div`
     align-items: center;
     color: white;
     font-size: 40px;
+    border: none;
 `

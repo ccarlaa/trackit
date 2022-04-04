@@ -25,7 +25,14 @@ export default function Login() {
             password: password, 
         })
         promisse.then((answer) => {
-            setInfosLogin(...infosLogin, answer);
+            localStorage.setItem("user", JSON.stringify({
+                token: answer.data.token,
+                image: answer.data.image,
+                name: answer.data.name,
+            })
+        );
+            setInfosLogin(answer.data);
+            console.log(setInfosLogin)
             navigate('/Today');
         })
         promisse.catch((warning) => {

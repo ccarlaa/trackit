@@ -57,8 +57,7 @@ const ProgressBar = styled.div`
     position: fixed;
     bottom: 10px;
     right: 35%;
-    z-index: 1;
-
+    z-index: 2;
 `
 const FooterApp = styled.footer`
     width: 100%;
@@ -69,6 +68,7 @@ const FooterApp = styled.footer`
     display: flex;
     display: flex;
     justify-content: space-between;
+    z-index: 1;
 `
 const Habits = styled.div`
     width: 100%;

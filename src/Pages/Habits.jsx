@@ -12,7 +12,7 @@ export default function Habits() {
     const { addNewHabit, setAddNewHabit } = useContext(AddNewHabit);
     const { newRequisition } = useContext(NewRequisition);
     const { infosLogin } = useContext(InfosLogin);
-    const { token } = infosLogin.data;
+    const { token } = infosLogin;
 
     useEffect(() => {
         const promisse = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", {headers: {'Authorization': `Bearer ${token}`}});
@@ -69,7 +69,7 @@ export default function Habits() {
 
 const Container = styled.div`
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background-color: #F2F2F2;
     padding-top: 80px;
     padding-bottom: 90px;

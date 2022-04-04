@@ -9,7 +9,7 @@ import Historic from "./Pages/Historic"
 import { InfosLogin, AddNewHabit, HabitsList, NewRequisition, HabitsToday, Score } from "../src/Contexts"
 
 export default function App() {
-    const [infosLogin, setInfosLogin] = useState([]);
+    const [infosLogin, setInfosLogin] = useState(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null);
     const [addNewHabit, setAddNewHabit] = useState(false);
     const [habitsList, setHabitsList] = useState([]);
     const [newRequisition, setNewRequisition] = useState(false);

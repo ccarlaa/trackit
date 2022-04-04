@@ -5,7 +5,8 @@ import LogoName from "../Images/LogoName.png";
 
 export default function Header() {
     const {infosLogin} = useContext(InfosLogin);
-    const {image} = infosLogin.data;
+    const {image} = infosLogin;
+    
     return (
         <HeaderApp >
             <HeaderCenter>

@@ -17,7 +17,7 @@ export default function Card() {
     const { habitsList } = useContext(HabitsList);
     const { infosLogin } = useContext(InfosLogin);
     const { newRequisition, setNewRequisition } = useContext(NewRequisition);
-    const { token } = infosLogin.data;
+    const { token } = infosLogin;
 
     function postDelete(e, id){
         e.preventDefault();
@@ -25,7 +25,7 @@ export default function Card() {
             promisse.then(() => {
                 setNewRequisition(!newRequisition);
             })
-            promisse.catch((warning) => {
+            promisse.catch(() => {
                 alert("Não foi possível deletar o hábito. Por favor, tente novamente");
             })
     }

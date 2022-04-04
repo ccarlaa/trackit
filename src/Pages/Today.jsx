@@ -15,7 +15,9 @@ export default function Today() {
     const { setScore } = useContext(Score);
     const { newRequisition } = useContext(NewRequisition);
     const { infosLogin } = useContext(InfosLogin);
-    const { token } = infosLogin.data;
+    console.log(infosLogin);
+    const { token } = infosLogin;
+    console.log(token);
 
     useEffect(() => {
         const promisse = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", {headers: {'Authorization': `Bearer ${token}`}});
