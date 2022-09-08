@@ -69,7 +69,7 @@ export default function Habits() {
 
 const Container = styled.div`
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background-color: #F2F2F2;
     padding-top: 80px;
     padding-bottom: 90px;

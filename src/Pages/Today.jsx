@@ -15,12 +15,13 @@ export default function Today() {
     const { setScore } = useContext(Score);
     const { newRequisition } = useContext(NewRequisition);
     const { infosLogin } = useContext(InfosLogin);
-    console.log(infosLogin);
     const { token } = infosLogin;
-    console.log(token);
 
     useEffect(() => {
-        const promisse = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", {headers: {'Authorization': `Bearer ${token}`}});
+        const promisse = axios.get(
+            "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",
+            {headers: {'Authorization': `Bearer ${token}`
+        }});
         promisse.then((answer) => {
             setHabitsToday(answer.data);
         });
@@ -28,9 +29,8 @@ export default function Today() {
     }, [newRequisition]);
 
     const dayjs = require('dayjs');
-    dayjs.locale('br');
     let now = dayjs();
-    let today = new Date((now.format('dddd, MM/DD')))
+    let today = new Date((now.format('dddd, MM/DD')));
     const option = {
         month: 'numeric',
         weekday: 'long',

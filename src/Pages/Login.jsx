@@ -32,7 +32,6 @@ export default function Login() {
             })
         );
             setInfosLogin(answer.data);
-            console.log(setInfosLogin)
             navigate('/Today');
         })
         promisse.catch((warning) => {

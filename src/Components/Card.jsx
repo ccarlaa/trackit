@@ -75,7 +75,7 @@ const HabitCreated = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-
+    margin-bottom: 10px;
 `
 const CenterHabit = styled.div`
     width: 90%;

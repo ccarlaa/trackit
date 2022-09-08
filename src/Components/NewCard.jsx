@@ -90,7 +90,7 @@ export default function NewCard() {
                                 Cancelar
                             </ButtonCancel>
                             <ButtonSave onClick={(e) => postNewCard(e)}>
-                                <RenderButton state={disabled} text="Entrar"/>
+                                <RenderButton state={disabled} text="Salvar"/>
                             </ButtonSave>
                         </AlignButtons>
                     </Form>
@@ -114,6 +114,7 @@ const Card = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 10px;
 `
 const Form = styled.div`
     width: 90%;
