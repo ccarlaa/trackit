@@ -1,11 +1,46 @@
-  ## ⚡️ TrackIt
+[**English**](#railway_track-trackit)
+[**Portuguese**](#-sobre)
 
-<p>Controle e monitoramento de hábitos.</p>
+## :railway_track: TrackIt
 
-<img src=/src/Images/trackit.gif  width="300" />
+<p>Habit control and monitoring.</p>
+
+<img src=/src/Images/trackit.gif width="300" />
 
 [TrackIt](https://projeto10-trackit-virid.vercel.app/)
 
+## 📝 About
+
+<p>The application aimed to monitor and control habits. It was built using the following technologies: CSS, HTML, Javascript, and React.
+</p>
+
+[![My Skills](https://skills.thijs.gg/icons?i=html,css,javascript,react&theme=light)](https://skills.thijs.gg)
+
+## 📁 Project Access
+
+You can [access the project's source code](https://github.com/ccarlaa/projeto10-trackit) or [download it](https://github.com/ccarlaa/projeto10-trackit/archive/refs/heads/main.zip).
+
+## 🛠️ Open and Run the Project
+
+After downloading the project, you can open it with Visual Studio Code. To do this, on the launcher screen, click:
+
+1. File > Open Folder
+2. Locate the project's location and select it (If the project is downloaded as a zip file, it needs to be extracted before locating it.)
+3. Finally, click Open
+4. Then open the terminal and install the dependencies with the following command:
+
+```bash
+npm install 
+```
+5. You can run the project by executing:
+
+```bash
+npm start
+```
+
+6. Finally, access http://localhost:3000 in your browser.
+
+***
 ## 📝 Sobre
 
 <p>A aplicação teve por objetivo realizar o monitoramento e controle de hábitos.
