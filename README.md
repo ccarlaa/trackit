@@ -1,5 +1,5 @@
 [**English**](#railway_track-trackit)
-[**Portuguese**](#-sobre)
+[**Português**](#-sobre)
 
 ## :railway_track: TrackIt
 
