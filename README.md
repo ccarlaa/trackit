@@ -14,7 +14,8 @@
 <p>The application aimed to monitor and control habits. It was built using the following technologies: CSS, HTML, Javascript, and React.
 </p>
 
-[![My Skills](https://skills.thijs.gg/icons?i=html,css,javascript,react&theme=light)](https://skills.thijs.gg)
+[![My Skills](https://skillicons.dev/icons?i=html,css,javascript,react&theme=light)](https://skillicons.dev)
+
 
 ## 📁 Project Access
 
